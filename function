@@ -40,7 +40,7 @@
     $('.go-back').on('click', function(e) {
         e.preventDefault();
         console.log('Go Back button clicked'); // Debugging log
-        showMainMenu(); // Go back to the main menu
+        $subMenus.show(); // Go back to the main menu
     });
 
     // Handle Close-All Button Clicks in Submenus
