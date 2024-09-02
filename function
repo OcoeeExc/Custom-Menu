@@ -1,0 +1,63 @@
+<script>jQuery(document).ready(function($) {
+    // Cache commonly used jQuery selectors
+    const $subMenus = $('.secondary-menu_bev, .secondary-menu_extracts, .secondary-menu_fats, .secondary-menu_fruits, .secondary-menu_proteins, .secondary-menu_spices, .secondary-menu_sweeteners, .secondary-menu_vegetables');
+    const $mainMenu = $('.main-menu_open');
+    const $hamburgerIcon = $('#hamburger-icon');
+
+    // Function to show the main menu and hide all submenus
+    function showMainMenu() {
+        $subMenus.hide();
+        $mainMenu.show();
+    }
+
+    // Function to position the submenu in the same place as the main menu
+    function positionSubMenu($menu) {
+        const mainMenuOffset = $mainMenu.offset();
+        $menu.css({
+            'position': 'absolute',
+            'top': mainMenuOffset.top + 'px',
+            'left': mainMenuOffset.left + 'px',
+            'width': $mainMenu.outerWidth()
+        });
+    }
+
+    // General function to handle submenu toggling
+    function openSubMenu(menuId) {
+        const $menuToShow = $(menuId);
+        positionSubMenu($menuToShow);
+        $mainMenu.hide();
+        $menuToShow.show();
+    }
+
+    // Event handler for showing corresponding submenus
+    $('[id^=open-]').on('click', function(e) {
+        e.preventDefault();
+        const menuId = '#' + $(this).attr('id') + '-menu';
+        openSubMenu(menuId);
+    });
+
+    // Handle Go-Back Button Clicks in Submenus
+    $('.go-back').on('click', function(e) {
+        e.preventDefault();
+        console.log('Go Back button clicked'); // Debugging log
+        showMainMenu(); // Go back to the main menu
+    });
+
+    // Handle Close-All Button Clicks in Submenus
+    $('.close-all').on('click', function(e) {
+        e.preventDefault();
+        console.log('Close All button clicked in submenu'); // Debugging log
+        showMainMenu(); // Close all submenus and show the main menu
+        $hamburgerIcon.show(); // Optionally, show the hamburger icon again
+    });
+
+    // Handle Close Button on the Main Menu
+    $('.close-all_main').on('click', function(e) {
+        e.preventDefault();
+        console.log('Close button clicked on main menu'); // Debugging log
+        $mainMenu.hide();
+        $subMenus.hide(); // Hide all submenus
+        $hamburgerIcon.show(); // Optionally, show the hamburger icon again
+    });
+});
+</script>
